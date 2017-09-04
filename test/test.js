@@ -32,7 +32,7 @@ describe('gulp-browser-i18n-localize', function () {
 
         });
 
-        it('should replace getMessage() with strings', function (done) {
+        it('should replace getMessage() with strings using en-US locale', function (done) {
             var localizer = localize({
                 localesDir: testLocalesDir,
                 locales: ['en-US']
@@ -44,6 +44,7 @@ describe('gulp-browser-i18n-localize', function () {
             });
 
             check(localizer, done, function (newFile) {
+                String(newFile.path).should.equal(Path.resolve(__dirname + '/../getMessage.en-US.js'));
                 String(newFile.contents).should.equal(fs.readFileSync('test/expected/getMessage.js', 'utf8'));
             });
         });
@@ -60,6 +61,7 @@ describe('gulp-browser-i18n-localize', function () {
             });
 
             check(localizer, done, function (newFile) {
+                String(newFile.path).should.equal(Path.resolve(__dirname + '/../getMessage.en-GB.js'));
                 String(newFile.contents).should.equal(fs.readFileSync('test/expected/getMessage.en-GB.js', 'utf8'));
             });
         });
@@ -78,9 +80,45 @@ describe('gulp-browser-i18n-localize', function () {
 
             var i = 0;
             check(localizer, done, function (newFile) {
-                String(newFile.path).should.equal(Path.resolve(__dirname + '/../localized/' + locales[i] + '/getMessage.js'));
+                String(newFile.path).should.equal(Path.resolve(__dirname + '/../getMessage.' + locales[i] + '.js'));
                 String(newFile.contents).should.equal(fs.readFileSync('test/expected/getMessage.' + locales[i] + '.js', 'utf8'));
                 i++;
+            });
+        });
+
+        it('should replace predefined __MSG_*__ locale and bidi placeholders for English', function (done) {
+            var localizer = localize({
+                localesDir: testLocalesDir,
+                locales: ['en'],
+                direction: "ltr"
+            });
+
+            file = new File({
+                path: 'test/cases/bidi.css',
+                contents: fs.readFileSync('test/cases/bidi.css')
+            });
+
+            check(localizer, done, function (newFile) {
+                String(newFile.path).should.equal(Path.resolve(__dirname + '/../bidi.en.css'));
+                String(newFile.contents).should.equal(fs.readFileSync('test/expected/bidi.en.css', 'utf8'));
+            });
+        });
+
+        it('should replace predefined __MSG_*__ locale and bidi placeholders for Hebrew', function (done) {
+            var localizer = localize({
+                localesDir: testLocalesDir,
+                locales: ['iw'],
+                direction: "rtl"
+            });
+
+            file = new File({
+                path: 'test/cases/bidi.css',
+                contents: fs.readFileSync('test/cases/bidi.css')
+            });
+
+            check(localizer, done, function (newFile) {
+                String(newFile.path).should.equal(Path.resolve(__dirname + '/../bidi.iw.css'));
+                String(newFile.contents).should.equal(fs.readFileSync('test/expected/bidi.iw.css', 'utf8'));
             });
         });
 
@@ -92,9 +130,7 @@ describe('gulp-browser-i18n-localize', function () {
         beforeEach(function () {
             check = function (stream, done, cb) {
                 stream.on('data', function (newFile) {
-                    newFile.contents.pipe(concatStream({ encoding: 'string' }, function (data) {
-                        cb(data);
-                    }));
+                    cb(newFile);
                 });
 
                 stream.on('finish', function () {
@@ -118,8 +154,11 @@ describe('gulp-browser-i18n-localize', function () {
                 contents: fs.createReadStream('test/cases/getMessage.js')
             });
 
-            check(localizer, done, function (data) {
-                data.should.equal(fs.readFileSync('test/expected/getMessage.js', 'utf8'));
+            check(localizer, done, function (newFile) {
+                newFile.contents.pipe(concatStream({ encoding: 'string' }, function (data) {
+                    newFile.path.should.equal(Path.normalize('test/cases/getMessage.en-US.js'));
+                    data.should.equal(fs.readFileSync('test/expected/getMessage.en-US.js', 'utf8'));
+                }));
             });
         });
 
@@ -135,12 +174,14 @@ describe('gulp-browser-i18n-localize', function () {
                 contents: fs.createReadStream('test/cases/getMessage.locale.js')
             });
 
-            check(localizer, done, function (data) {
-                data.should.equal(fs.readFileSync('test/expected/getMessage.en-GB.js', 'utf8'));
+            check(localizer, done, function (newFile) {
+                newFile.contents.pipe(concatStream({ encoding: 'string' }, function (data) {
+                    newFile.path.should.equal(Path.normalize('test/cases/getMessage.en-GB.js'));
+                    data.should.equal(fs.readFileSync('test/expected/getMessage.en-GB.js', 'utf8'));
+                }));
             });
         });
 
-        //@TODO does it make sense to check file names for streams? if so, this needs a different solution
         it('should replace getMessage() with strings using en-US, en-GB, and fr locales', function (done) {
             var locales = ['en-US', 'en-GB', 'fr'];
             var localizer = localize({
@@ -156,8 +197,53 @@ describe('gulp-browser-i18n-localize', function () {
 
             var i = 0;
             check(localizer, done, function (newFile) {
-                data.should.equal(fs.readFileSync('test/expected/getMessage.' + locales[i] + '.js', 'utf8'));
-                i++;
+                newFile.contents.pipe(concatStream({ encoding: 'string' }, function (data) {
+                    newFile.path.should.equal(Path.normalize('test/cases/getMessage.' + locales[i] + '.js'));
+                    data.should.equal(fs.readFileSync('test/expected/getMessage.' + locales[i] + '.js', 'utf8'));
+                    i++;
+                }));
+            });
+        });
+
+        it('should replace predefined __MSG_*__ locale and bidi placeholders for English', function (done) {
+            var localizer = localize({
+                localesDir: testLocalesDir,
+                locales: ['en'],
+                direction: "ltr"
+            });
+
+            file = new File({
+                base: 'test/cases/',
+                path: 'test/cases/bidi.css',
+                contents: fs.createReadStream('test/cases/bidi.css')
+            });
+
+            check(localizer, done, function (newFile) {
+                newFile.contents.pipe(concatStream({ encoding: 'string' }, function (data) {
+                    newFile.path.should.equal(Path.normalize('test/cases/bidi.en.css'));
+                    data.should.equal(fs.readFileSync('test/expected/bidi.en.css', 'utf8'));
+                }));
+            });
+        });
+
+        it('should replace predefined __MSG_*__ locale and bidi placeholders for Hebrew', function (done) {
+            var localizer = localize({
+                localesDir: testLocalesDir,
+                locales: ['iw'],
+                direction: "rtl"
+            });
+
+            file = new File({
+                base: 'test/cases/',
+                path: 'test/cases/bidi.css',
+                contents: fs.createReadStream('test/cases/bidi.css')
+            });
+
+            check(localizer, done, function (newFile) {
+                newFile.contents.pipe(concatStream({ encoding: 'string' }, function (data) {
+                    newFile.path.should.equal(Path.normalize('test/cases/bidi.iw.css'));
+                    data.should.equal(fs.readFileSync('test/expected/bidi.iw.css', 'utf8'));
+                }));    
             });
         });
 

@@ -1,0 +1,13 @@
+body {
+  direction: __MSG_@@bidi_dir__;
+}
+      
+div#header {
+  background-image: url(../images/__MSG_@@ui_locale__/header.png);
+  margin-bottom: 1.05em;
+  overflow: hidden;
+  padding-bottom: 1.5em;
+  padding-__MSG_@@bidi_start_edge__: 0;
+  padding-__MSG_@@bidi_end_edge__: 1.5em;
+  position: relative;
+}
