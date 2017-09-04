@@ -8,7 +8,7 @@ var should = require('should');
 var File = require('vinyl');
 var Path = require('path');
 
-let testLocalesDir = 'test/_locales';
+var testLocalesDir = 'test/_locales';
 
 
 describe('gulp-browser-i18n-localize', function () {
