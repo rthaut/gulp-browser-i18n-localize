@@ -200,7 +200,7 @@ module.exports = function (options) {
                         .pipe(rs(options.regexMethods, i18nMethodReplacer));
                 } else if (newFile.isBuffer()) {
                     newFile.contents = new Buffer(String(newFile.contents)
-                        .replace(options.regexMessages, i18nMethodReplacer)
+                        .replace(options.regexMessages, i18nMSGReplacer)
                         .replace(options.regexMethods, i18nMethodReplacer));
                 }
             } catch (e) {
