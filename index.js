@@ -179,9 +179,10 @@ module.exports = function (options) {
             return callback(null, file);
         }
 
+        var locales = options.locales.slice(0);
         var newFile;
-        while (options.locales.length) {
-            _locale = options.locales.shift();
+        while (locales.length) {
+            _locale = locales.shift();
             newFile = file.clone();
 
             if (options.schema) {
