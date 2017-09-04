@@ -16,6 +16,7 @@ const PLUGIN_NAME = 'gulp-browser-i18n-localize';
 module.exports = function (options) {
     var options = extend(true, {}, {
         localesDir: '_locales',
+        locales: [],
         schema: '$filename.$locale.$ext',
         direction: 'ltr',
         regexMessages: new RegExp(/__MSG_([\S]+)__/gi),
