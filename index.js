@@ -16,6 +16,7 @@ const PLUGIN_NAME = 'gulp-browser-i18n-localize';
 module.exports = function (options) {
     var options = extend(true, {}, {
         localesDir: '_locales',
+        schema: '$filename.$locale.$ext',
         direction: 'ltr',
         regexMessages: new RegExp(/__MSG_([\S]+)__/gi),
         regexMethods: new RegExp(/(?:browser|chrome)\.i18n\.([a-zA-Z]+)\(([^\)]+)?\)/gi)
@@ -189,7 +190,7 @@ module.exports = function (options) {
                 var newPath = options.schema
                     .replace('$locale', _locale)
                     .replace('$filename', path.basename(newFile.path, path.extname(newFile.path)))
-                    .replace('$ext', path.extname(newFile.path));
+                    .replace('$ext', path.extname(newFile.path).replace(/(^\.)/, ''));
                 newFile.path = path.join(newFile.base, newPath);
             }
 
