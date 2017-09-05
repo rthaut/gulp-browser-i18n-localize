@@ -1,0 +1,13 @@
+body {
+  direction: rtl;
+}
+      
+div#header {
+  background-image: url(../images/iw/header.png);
+  margin-bottom: 1.05em;
+  overflow: hidden;
+  padding-bottom: 1.5em;
+  padding-right: 0;
+  padding-left: 1.5em;
+  position: relative;
+}

@@ -1,0 +1,13 @@
+body {
+  direction: ltr;
+}
+      
+div#header {
+  background-image: url(../images/en/header.png);
+  margin-bottom: 1.05em;
+  overflow: hidden;
+  padding-bottom: 1.5em;
+  padding-left: 0;
+  padding-right: 1.5em;
+  position: relative;
+}

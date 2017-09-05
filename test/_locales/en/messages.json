@@ -1,0 +1,31 @@
+{
+    "extensionName": {
+        "message": "My Custom Extension with Localization Support",
+        "description": "Name of the extension."
+    },
+    "extensionDescription": {
+        "message": "This is just a basic extension showing how to implement localization",
+        "description": "Description of the extension."
+    },
+    "connectionString": {
+        "message": "Authentication: $PROTOCOL$://$USERNAME$@$ADDRESS$:$PORT$",
+        "description": "This message uses hard-coded placeholders to format a string.",
+        "placeholders": {
+            "protocol": {
+                "content": "https"
+            },
+            "username": {
+                "content": "rthaut"
+            },
+            "address": {
+                "content": "github.com/rthaut"
+            },
+            "port": {
+                "content": 8888
+            }
+        }
+    },
+    "colorString": {
+        "message": "color"
+    }
+}

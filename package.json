@@ -1,0 +1,42 @@
+{
+  "name": "gulp-browser-i18n-localize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rthaut/gulp-browser-i18n-localize.git"
+  },
+  "keywords": [
+    "gulp",
+    "browser",
+    "webextension",
+    "userscript",
+    "i18n",
+    "localize",
+    "replace"
+  ],
+  "author": "Ryan Thaut <rthaut@gmail.com> (http://ryanthaut.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rthaut/gulp-browser-i18n-localize/issues"
+  },
+  "homepage": "https://github.com/rthaut/gulp-browser-i18n-localize#readme",
+  "dependencies": {
+    "extend": "^3.0.1",
+    "gulp-util": "^3.0.8",
+    "replacestream": "^4.0.2",
+    "require-dir": "^0.3.2",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "concat-stream": "^1.6.0",
+    "mocha": "^3.5.0",
+    "path": "^0.12.7",
+    "should": "^12.0.0",
+    "vinyl": "^2.1.0"
+  }
+}
