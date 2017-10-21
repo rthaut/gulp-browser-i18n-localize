@@ -3,7 +3,7 @@
 
 ## Why?
 
-This gulp plugin was originally written to help convert browser web extensions into legacy userscripts. Proper web extensions support translations, which is easy enough to do with the browser APIs, but those APIs are not available to userscripts. Using this plugin, a web extension with translastions can be built into a userscript (or a series of userscripts, for all supported locales) where the API functionality is replaced with hard-coded translations.
+This gulp plugin was originally written to help convert browser web extensions into legacy userscripts. Proper web extensions support translations, which is easy enough to do with the browser APIs, but those APIs are not available to userscripts. Using this plugin, a web extension with translastions can be built into a userscript (or a series of userscripts, for all supported locales) where the API functionality is replaced with the hard-coded translations for each locale.
 
 ## Usage
 
@@ -34,7 +34,7 @@ Type: string
 
 Default: `_locales`
 
-Description: Specifies the path to the root directory for the locales (this path should end in `_locales`), since that is the convention specified for Web Extensions (see [Providing localized strings in \_locales on MDN](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Internationalization#Providing_localized_strings_in__locales).
+Description: Specifies the path to the root directory for the locales (this path should end in `_locales`), since that is the convention specified for Web Extensions (see [Providing localized strings in \_locales on MDN](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Internationalization#Providing_localized_strings_in__locales)).
 
 #### locales
 
@@ -54,11 +54,11 @@ Description: Specifies the naming schema used for the localized files in the str
 
 **NOTE**: Empty files are not renamed in the stream/buffer.
 
-| Placeholder   | Description   | Example |
-| ------------- | ------------- | ------- |
-| $filename | This is the original file name, minus path and extension     | `mfile` |
-| $locale   | This is the locale used during processing                    | `en-US` |
-| $ext      | This is the original file's extension (minus leading period) | `js`    |
+| Placeholder   | Description   | Example Value |
+| ------------- | ------------- | ------------- |
+| $filename | This is the original file name, minus path and extension     | `myfile` |
+| $locale   | This is the locale used during processing                    | `en-US`  |
+| $ext      | This is the original file's extension (minus leading period) | `js`     |
 
 You could use `/$locale/$filename.$ext` to place all translated files into sub-directories corresponding to their locale.
 
