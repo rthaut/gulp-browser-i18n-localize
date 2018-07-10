@@ -13,13 +13,13 @@ var PluginError = require('plugin-error');
 const PLUGIN_NAME = 'gulp-browser-i18n-localize';
 
 module.exports = function (options) {
-    var options = extend(true, {}, {
-        localesDir: '_locales',
-        locales: [],
-        schema: '$filename.$locale.$ext',
-        direction: 'ltr',
-        regexMessages: new RegExp(/__MSG_([\S]+)__/gi),
-        regexMethods: new RegExp(/(?:browser|chrome)\.i18n\.([a-zA-Z]+)\(([^\)]+)?\)/gi)
+    options = extend(true, {}, {
+        'localesDir': '_locales',
+        'locales': [],
+        'schema': '$filename.$locale.$ext',
+        'direction': 'ltr',
+        'regexMessages': new RegExp(/__MSG_([\S]+)__/gi),
+        'regexMethods': new RegExp(/(?:browser|chrome)\.i18n\.([a-zA-Z]+)\(([^\)]+)?\)/gi)
     }, options);
 
     // load the localized messages from JSON files into a single dictionary object
@@ -27,7 +27,7 @@ module.exports = function (options) {
     try {
         var localesDir = path.resolve(process.cwd(), options.localesDir);
         fs.accessSync(localesDir);
-        _dictionary = requireDir(localesDir, { recurse: true });
+        _dictionary = requireDir(localesDir, { 'recurse': true });
     } catch (e) {
         throw new PluginError(PLUGIN_NAME, `Locale directory ('${options.localesDir}') not found`);
     }
@@ -61,11 +61,11 @@ module.exports = function (options) {
             case 'getMessage':
                 args = args.split(',').map(e => e.trim());
                 if (args.length < 1) {
-                    throw new PluginError(PLUGIN_NAME, `No argument(s) supplied to 'i18n.getMessage()'`);
+                    throw new PluginError(PLUGIN_NAME, "No argument(s) supplied to 'i18n.getMessage()'");
                 }
 
                 var msgName = args[0];
-                var subsitutions = args.slice(1);
+                //var substitutions = args.slice(1);
 
                 // ensure i18n.getMessage() was called with a string (instead of a variable)
                 var regex = new RegExp(/(^\"|\'|\`)|(\"|\'|\`$)/g);
@@ -78,10 +78,10 @@ module.exports = function (options) {
                 var message = getMessage(msgName, _dictionary, _locale);
 
                 if (message.indexOf('$') !== -1) {
-                    throw new PluginError(PLUGIN_NAME, `Substitutions in messages are not currently supported`);
+                    throw new PluginError(PLUGIN_NAME, 'Substitutions in messages are not currently supported');
 
                     // this has to return code that does a search and replace on the msg.message
-                    // using the substituions supplied as arguments to the original i18n.getMessage() call
+                    // using the substitutions supplied as arguments to the original i18n.getMessage() call
                     // https://dxr.mozilla.org/mozilla-central/source/toolkit/components/extensions/ExtensionCommon.jsm#1359
 
                 }
@@ -96,7 +96,7 @@ module.exports = function (options) {
         }
 
         // fallback to just returning the original code
-        //@TODO should this throw an error instead? Maybe make the error suppressable?
+        //@TODO should this throw an error instead? Maybe make the error suppressible?
         return match;
     }
 
@@ -138,28 +138,28 @@ module.exports = function (options) {
         }
 
         if (!dictionary) {
-            throw new PluginError(PLUGIN_NAME, `Missing dictionary data`);
+            throw new PluginError(PLUGIN_NAME, 'Missing dictionary data');
         }
 
-        var locale = locale.replace('-', '_');
+        locale = locale.replace('-', '_');
 
         // generate the list of locales that will be checked
         // (https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Internationalization#Localized_string_selection)
         var locales = [locale];
-        if (locale.indexOf("_") !== -1) {
+        if (locale.indexOf('_') !== -1) {
             locales.push(locale.split('_')[0]);
         }
 
         var msg = null;
         for (var i = 0; i < locales.length; i++) {
             if (dictionary[locales[i]] && dictionary[locales[i]].messages[message]) {
-                var msg = dictionary[locales[i]].messages[message];
+                msg = dictionary[locales[i]].messages[message];
                 break;
             }
         }
 
         if (msg === null) {
-            return "";
+            return '';
         }
 
         var str = msg.message;
@@ -213,4 +213,4 @@ module.exports = function (options) {
         return callback();
     });
 
-}
+};

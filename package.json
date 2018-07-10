@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "concat-stream": "^1.6.0",
+    "eslint": "^5.1.0",
     "mocha": "^3.5.0",
     "path": "^0.12.7",
     "should": "^12.0.0",
