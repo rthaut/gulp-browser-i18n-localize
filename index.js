@@ -2,14 +2,13 @@
 
 var extend = require('extend');
 var fs = require('fs');
-var gutil = require('gulp-util');
 var path = require('path');
 
 var requireDir = require('require-dir');
 var rs = require('replacestream');
 var through = require('through2');
 
-var PluginError = gutil.PluginError;
+var PluginError = require('plugin-error');
 
 const PLUGIN_NAME = 'gulp-browser-i18n-localize';
 

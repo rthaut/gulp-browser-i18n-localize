@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rthaut/gulp-browser-i18n-localize#readme",
   "dependencies": {
     "extend": "^3.0.1",
-    "gulp-util": "^3.0.8",
+    "plugin-error": "^1.0.1",
     "replacestream": "^4.0.2",
     "require-dir": "^0.3.2",
     "through2": "^2.0.3"
