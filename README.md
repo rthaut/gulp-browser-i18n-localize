@@ -1,9 +1,10 @@
 # gulp-browser-i18n-localize [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url]
+
 > A gulp plugin that hardcodes localized messages into files that utilize browser internationalization APIs (`browser.i18n.*` / `chrome.i18n.*`).
 
 ## Why?
 
-This gulp plugin was originally written to help convert browser web extensions into legacy userscripts. Proper web extensions support translations, which is easy enough to do with the browser APIs, but those APIs are not available to userscripts. Using this plugin, a web extension with translastions can be built into a userscript (or a series of userscripts, for all supported locales) where the API functionality is replaced with the hard-coded translations for each locale.
+This gulp plugin was originally written to help convert browser web extensions into legacy userscripts. Proper web extensions support translations, which is easy enough to do with the browser APIs, but those APIs are not available to userscripts. Using this plugin, a web extension with translations can be built into a userscript (or a series of userscripts, for all supported locales) where the API functionality is replaced with the hard-coded translations for each locale.
 
 ## Usage
 
@@ -16,6 +17,7 @@ npm install --save-dev gulp-browser-i18n-localize
 Then, add it to your `gulpfile.js`:
 
 ### Basic Configuration
+
 ```javascript
 var localize = require('gulp-browser-i18n-localize');
 
@@ -76,7 +78,7 @@ Type: RegExp
 
 Default: `/__MSG_([\S]+)__/gi`
 
-Description: Specifies the regular experssion used to find `__MSG_ + messageName + __` strings. This regular experssion should include one capture group that will contain the actual message name.
+Description: Specifies the regular expression used to find `__MSG_ + messageName + __` strings. This regular expression should include one capture group that will contain the actual message name.
 
 #### regexMethods
 
@@ -84,8 +86,7 @@ Type: RegExp
 
 Default: `/(?:browser|chrome)\.i18n\.([a-zA-Z]+)\(([^\)]+)?\)/gi`
 
-Description: Specifies the regular experssion used to find `browser.i18n.*` and `chomre.i18n.*` methods. This regular experssion should include two capture groups: one for the method name, and one for the (optional) arguments supplied to the method.
-
+Description: Specifies the regular expression used to find `browser.i18n.*` and `chrome.i18n.*` methods. This regular expression should include two capture groups: one for the method name, and one for the (optional) arguments supplied to the method.
 
 [travis-url]: http://travis-ci.org/rthaut/gulp-browser-i18n-localize
 [travis-image]: https://secure.travis-ci.org/rthaut/gulp-browser-i18n-localize.svg?branch=master
