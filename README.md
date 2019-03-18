@@ -1,5 +1,7 @@
 # gulp-browser-i18n-localize [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rthaut/gulp-browser-i18n-localize.svg)](https://greenkeeper.io/)
+
 > A gulp plugin that hardcodes localized messages into files that utilize browser internationalization APIs (`browser.i18n.*` / `chrome.i18n.*`).
 
 ## Why?
